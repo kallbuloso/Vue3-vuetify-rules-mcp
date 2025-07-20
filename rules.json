@@ -1,0 +1,186 @@
+{
+  "projectRules": {
+    "vue3Development": {
+      "title": "Vue 3 + Vuetify Development Guidelines",
+      "description": "Rules for MCP agents when working with this Vue 3/Vuetify project",
+      "rules": [
+        {
+          "category": "Composition API",
+          "priority": "high",
+          "rules": [
+            "ALWAYS use Composition API with <script setup> syntax instead of Options API",
+            "Use reactive(), ref(), computed(), and watch() from Vue 3 composition API",
+            "Prefer defineProps() and defineEmits() for component props and events",
+            "Use composables (functions starting with 'use') for reusable logic",
+            "Extract complex reactive logic into separate composable functions"
+          ]
+        },
+        {
+          "category": "Props and Component Communication",
+          "priority": "high",
+          "rules": [
+            "Define props using defineProps() with TypeScript interfaces for type safety",
+            "Use prop validation with required, type, and default properties",
+            "Emit events using defineEmits() instead of $emit",
+            "Pass data down via props, emit events up to parent components",
+            "Use provide/inject for deeply nested component communication",
+            "Avoid direct mutation of props - emit events to request changes"
+          ]
+        },
+        {
+          "category": "Reusable Techniques",
+          "priority": "high",
+          "rules": [
+            "Create composables in src/composables/ for shared reactive logic",
+            "Use slots and scoped slots for flexible component content",
+            "Implement render functions or dynamic components when appropriate",
+            "Create utility functions in src/utils/helpers/ for non-reactive logic",
+            "Use mixins sparingly - prefer composables for Vue 3",
+            "Implement generic components that accept configuration via props",
+            "Use computed properties for derived state instead of methods when possible"
+          ]
+        },
+        {
+          "category": "Vuetify Integration",
+          "priority": "high",
+          "rules": [
+            "Leverage Vuetify's built-in components before creating custom ones",
+            "Use Vuetify's theming system for consistent styling",
+            "Utilize v-model with Vuetify form components",
+            "Use Vuetify's grid system (v-container, v-row, v-col) for layouts",
+            "Apply Vuetify's spacing and typography utilities",
+            "Use Vuetify's icon system (v-icon) with Material Design Icons"
+          ]
+        },
+        {
+          "category": "Styling and CSS Guidelines",
+          "priority": "critical",
+          "rules": [
+            "NEVER write pure CSS or custom CSS classes - always use Vuetify utilities",
+            "Use Vuetify's built-in classes for spacing (ma-, pa-, mt-, pt-, etc.)",
+            "Use Vuetify's color system (primary, secondary, success, error, etc.)",
+            "Use Vuetify's typography classes (text-h1, text-h2, text-body-1, etc.)",
+            "Use Vuetify's display utilities (d-flex, d-none, d-block, etc.)",
+            "Use Vuetify's elevation classes (elevation-1, elevation-2, etc.)",
+            "Use Vuetify's border utilities (border, rounded, etc.)",
+            "Apply responsive classes (hidden-xs-only, hidden-sm-and-down, etc.)",
+            "Use Vuetify's sizing utilities (width, height, max-width, etc.)",
+            "For custom styling needs, use Vuetify's theme variables and CSS custom properties",
+            "If absolutely necessary, use scoped styles with Vuetify theme integration"
+          ]
+        },
+        {
+          "category": "Component Architecture",
+          "priority": "high",
+          "rules": [
+            "Avoid creating new component files unless absolutely necessary",
+            "Extend existing components with props and slots instead of duplicating",
+            "Use conditional rendering (v-if, v-show) within components for variations",
+            "Implement component variants through props rather than separate files",
+            "Create higher-order components or wrapper components for common patterns",
+            "Use dynamic component rendering with <component :is='componentName'> when needed"
+          ]
+        },
+        {
+          "category": "State Management",
+          "priority": "medium",
+          "rules": [
+            "Use Pinia stores (in src/stores/) for global state management",
+            "Keep component-specific state local using ref() or reactive()",
+            "Use computed properties for derived state from stores",
+            "Implement store actions for complex state mutations",
+            "Use store getters for filtered or computed store data"
+          ]
+        },
+        {
+          "category": "Code Organization",
+          "priority": "medium",
+          "rules": [
+            "Group related functionality within single components using logical sections",
+            "Use TypeScript interfaces and types for better code documentation",
+            "Implement error boundaries and proper error handling",
+            "Use Vue 3's Teleport for modals, tooltips, and overlays",
+            "Follow the established folder structure in src/",
+            "Place reusable types in dedicated type files when shared across components"
+          ]
+        },
+        {
+          "category": "Performance and Best Practices",
+          "priority": "medium",
+          "rules": [
+            "Use v-memo for expensive list rendering when appropriate",
+            "Implement lazy loading with defineAsyncComponent for large components",
+            "Use shallowRef() and shallowReactive() for large objects when deep reactivity isn't needed",
+            "Implement proper key attributes for v-for loops",
+            "Use nextTick() when DOM updates are required before further operations",
+            "Avoid creating reactive objects in render functions"
+          ]
+        },
+        {
+          "category": "Code Comments and Documentation",
+          "priority": "medium",
+          "rules": [
+            "Use Bisaya with slight English for code comments to maintain local context",
+            "Example format: 'query sa payroll data based on itemData.id = Employee ID','fetch ang tanan na trip locations para sa dropdown options'",
+            "Keep technical terms in English while using Bisaya for descriptive parts",
+            "Use this commenting style for better team understanding and local relevance",
+            "Maintain consistency in Bisaya-English comment patterns throughout the codebase"
+          ]
+        }
+      ]
+    },
+    "fileCreationGuidelines": {
+      "title": "File Creation Restrictions",
+      "description": "Guidelines for when to create new files vs. extending existing ones",
+      "rules": [
+        "Before creating a new component file, check if existing components can be extended",
+        "Create new files only when the component serves a completely different purpose",
+        "Prefer adding props and conditional logic to existing components",
+        "Use slots and dynamic content instead of creating similar components",
+        "Create utility functions in existing helper files rather than new utility files",
+        "Add new composables to existing composable files when related functionality exists"
+      ]
+    },
+    "agentIntegration": {
+      "title": "How to Use Rules as Agent Prompts",
+      "description": "Instructions for integrating these rules with AI agents",
+      "methods": [
+        {
+          "method": "VS Code Extension Prompt",
+          "description": "Include this file as context in VS Code extensions or MCP servers",
+          "implementation": "Attach this rules.json file as context when making requests to AI agents"
+        },
+        {
+          "method": "Custom Prompt Template",
+          "description": "Use the prompt template below for consistent agent behavior",
+          "promptTemplate": "You are working on a Vue 3 + Vuetify project. Follow these critical rules:\n\n1. COMPOSITION API ONLY: Always use <script setup> syntax, never Options API\n2. NO PURE CSS: Never write custom CSS - only use Vuetify utility classes\n3. EXTEND, DON'T CREATE: Modify existing components with props/slots instead of creating new files\n4. VUETIFY FIRST: Use Vuetify components and utilities for all styling and layout\n\nCritical CSS Rules:\n- Use Vuetify spacing: ma-4, pa-2, mt-3, etc.\n- Use Vuetify colors: primary, secondary, success, error\n- Use Vuetify typography: text-h1, text-body-1, etc.\n- Use Vuetify display: d-flex, d-none, justify-center, etc.\n- Use Vuetify elevation: elevation-2, elevation-4, etc.\n\nRefer to the full rules.json for complete guidelines."
+        },
+        {
+          "method": "Project-Specific Instructions",
+          "description": "Copy and paste these rules into agent conversations",
+          "usage": "When starting a new conversation with an AI agent, include the relevant sections from this rules.json file"
+        }
+      ]
+    },
+    "codeExamples": {
+      "vuetifyStyleExample": {
+        "description": "Example of proper Vuetify styling (NO pure CSS)",
+        "good": "// ✅ CORRECT - Using Vuetify utilities\n<v-card class='ma-4 pa-6 elevation-2'>\n  <v-card-title class='text-h4 primary--text mb-3'>\n    {{ title }}\n  </v-card-title>\n  <v-card-text class='text-body-1 grey--text text--darken-2'>\n    <v-row class='d-flex justify-center align-center'>\n      <v-col cols='12' md='6' class='text-center'>\n        Content here\n      </v-col>\n    </v-row>\n  </v-card-text>\n</v-card>",
+        "bad": "// ❌ WRONG - Using pure CSS\n<div class='custom-card'>\n  <h2 class='custom-title'>{{ title }}</h2>\n  <p class='custom-text'>Content</p>\n</div>\n\n<style scoped>\n.custom-card {\n  margin: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 4px rgba(0,0,0,0.1);\n}\n.custom-title {\n  font-size: 24px;\n  color: #1976d2;\n}\n</style>"
+      },
+      "compositionApiExample": {
+        "description": "Example of proper Composition API usage with props",
+        "code": "// Preferred approach\n<script setup lang='ts'>\ninterface Props {\n  title: string\n  items: Array<any>\n  variant?: 'default' | 'compact'\n}\n\nconst props = withDefaults(defineProps<Props>(), {\n  variant: 'default'\n})\n\nconst emit = defineEmits<{\n  select: [item: any]\n  close: []\n}>()\n\nconst isCompact = computed(() => props.variant === 'compact')\n</script>"
+      },
+      "reusableComponentExample": {
+        "description": "Example of making a component reusable with props and slots",
+        "code": "// Instead of creating separate components, use props and slots\n<template>\n  <v-card :class='cardClasses'>\n    <v-card-title v-if='title'>{{ title }}</v-card-title>\n    <v-card-text>\n      <slot name='content'>\n        <slot>{{ defaultContent }}</slot>\n      </slot>\n    </v-card-text>\n    <v-card-actions v-if='$slots.actions'>\n      <slot name='actions'></slot>\n    </v-card-actions>\n  </v-card>\n</template>"
+      }
+    },
+    "quickReferencePrompt": {
+      "title": "Quick Agent Prompt",
+      "description": "Copy this prompt for immediate use with AI agents",
+      "prompt": "🚨 CRITICAL PROJECT RULES for Vue 3 + Vuetify:\n\n1. ❌ NO PURE CSS - Only Vuetify utility classes\n2. ✅ Use <script setup> - Never Options API\n3. ✅ Extend existing components - Don't create new files\n4. ✅ Use Vuetify spacing: ma-4, pa-2, mt-3\n5. ✅ Use Vuetify colors: primary, secondary, success\n6. ✅ Use Vuetify typography: text-h1, text-body-1\n7. ✅ Use Vuetify layout: d-flex, justify-center, align-center\n8. ✅ Use props + slots for component variations\n\nALWAYS follow these rules strictly!"
+    }
+  }
+}

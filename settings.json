@@ -1,0 +1,57 @@
+{
+  // GitHub Copilot Configuration
+  "github.copilot.chat.systemPrompt": "You are working on a Vue 3 + Vuetify project. CRITICAL RULES:\n\n1. COMPOSITION API ONLY: Always use <script setup> syntax, never Options API\n2. NO PURE CSS: Never write custom CSS - only use Vuetify utility classes\n3. EXTEND, DON'T CREATE: Modify existing components with props/slots instead of creating new files\n4. VUETIFY FIRST: Use Vuetify components and utilities for all styling and layout\n\nCritical CSS Rules:\n- Use Vuetify spacing: ma-4, pa-2, mt-3, etc.\n- Use Vuetify colors: primary, secondary, success, error\n- Use Vuetify typography: text-h1, text-body-1, etc.\n- Use Vuetify display: d-flex, d-none, justify-center, etc.\n- Use Vuetify elevation: elevation-2, elevation-4, etc.\n\nFor component variations, use props and conditional rendering instead of creating separate files.",
+  
+  "github.copilot.chat.welcomeMessage": "I'm ready to help with your Vue 3 + Vuetify project. I'll follow your project rules: Composition API only, Vuetify utilities for styling, and extending existing components rather than creating new ones.",
+  
+  // Context Files for AI Assistants
+  "aiAssistant.contextFiles": [
+    ".vscode/rules.json"
+  ],
+  
+  // Auto-include rules in workspace suggestions
+  "github.copilot.enable": {
+    "*": true,
+    "vue": true,
+    "typescript": true,
+    "javascript": true
+  },
+  
+  // Custom snippets triggered by AI
+  "aiAssistant.customPrompts": {
+    "vue-component": "Create a Vue 3 component using Composition API with <script setup>. Follow project rules: use Vuetify utilities only, no custom CSS, implement props for variations.",
+    "style-fix": "Convert this CSS to Vuetify utility classes following project styling rules.",
+    "refactor-component": "Refactor this component to use Composition API and extend existing patterns instead of creating new files."
+  },
+  
+  // File associations for better AI context
+  "files.associations": {
+    "*.vue": "vue",
+    "rules.json": "jsonc"
+  },
+  
+  // Enhanced IntelliSense for Vuetify
+  "vetur.completion.useWorkspaceDependencies": true,
+  "vetur.experimental.templateInterpolationService": true,
+  
+  // Workspace-specific editor behavior
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  
+  // MCP Integration Settings
+  "mcp.servers": {
+    "project-rules": {
+      "enabled": true,
+      "autoStart": true
+    }
+  },
+  
+  // Project-specific shortcuts for AI
+  "aiShortcuts": {
+    "rules": "Apply Vue 3 + Vuetify project rules from .vscode/rules.json",
+    "style": "Convert to Vuetify utility classes only",
+    "extend": "Extend existing component instead of creating new file",
+    "composition": "Use Composition API with <script setup> syntax"
+  }
+}

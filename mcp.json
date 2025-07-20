@@ -1,0 +1,28 @@
+{
+	"servers": {
+		"Context7": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"-y",
+				"@upstash/context7-mcp@latest"
+			]
+		},
+
+		/* "project-rules": {
+			"type": "stdio",
+			"command": "node",
+			"args": [".vscode/project-rules-server.js"]
+		}, */
+		"my-mcp-server-48b89715": {
+			"url": "https://mcp.context7.com/mcp",
+			"type": "http"
+		},
+		"vuetify-mcp": {
+			"command": "npx",
+			"args": ["-y", "@vuetify/mcp"],
+			"type": "stdio"
+		}
+	},
+	"inputs": []
+}
