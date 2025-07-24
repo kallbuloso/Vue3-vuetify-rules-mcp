@@ -38,6 +38,9 @@
             "Use mixins sparingly - prefer composables for Vue 3",
             "Implement generic components that accept configuration via props",
             "Use computed properties for derived state instead of methods when possible"
+          ,
+          // --- C7 Supabase Join Integration Rule ---
+          "When fetching related table data with Supabase, ALWAYS use a single query with join syntax (e.g., .select('*, related:foreign_key(field)')) instead of multiple fetches. Example: For trips with units, use .select('*, units:unit_id(name)') to join and alias the related data. This ensures efficient data retrieval and cleaner code."
           ]
         },
         {
@@ -125,6 +128,21 @@
             "Keep technical terms in English while using Bisaya for descriptive parts",
             "Use this commenting style for better team understanding and local relevance",
             "Maintain consistency in Bisaya-English comment patterns throughout the codebase"
+          ]
+        },
+        {
+          "category": "TypeScript Variable Definitions",
+          "priority": "high",
+          "rules": [
+            "For number variables: Use 'undefined' instead of 'null' for undefined numeric values",
+            "For string variables: Use empty string '' or actual string values, avoid 'null'",
+            "Use TypeScript union types for optional values: 'number | undefined' for numbers",
+            "Use TypeScript union types for optional strings: 'string | undefined' if needed",
+            "Prefer explicit type definitions over 'any' type",
+            "Use 'undefined' for uninitialized primitive values consistently",
+            "Example: const count: number | undefined = undefined (not null)",
+            "Example: const name: string = '' (not null)",
+            "Example: const optionalText: string | undefined = undefined (when truly optional)"
           ]
         }
       ]

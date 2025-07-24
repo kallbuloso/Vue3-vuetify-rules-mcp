@@ -8,6 +8,9 @@ This guide explains how to use your `rules.json` file as extension prompts for A
 **Copy this prompt to start any AI conversation:**
 
 ```
+# IMPORTANT
+follow rules.json for coding practices setup by me.
+
 🚨 CRITICAL PROJECT RULES for Vue 3 + Vuetify:
 
 1. ❌ NO PURE CSS - Only Vuetify utility classes
@@ -163,3 +166,5 @@ get_quick_prompt()
 ```
 
 This setup ensures your Vue 3 + Vuetify development guidelines are consistently applied across all AI interactions in VS Code.
+
+use the rules.json for your rule references:
