@@ -12,7 +12,8 @@
             "Use reactive(), ref(), computed(), and watch() from Vue 3 composition API",
             "Prefer defineProps() and defineEmits() for component props and events",
             "Use composables (functions starting with 'use') for reusable logic",
-            "Extract complex reactive logic into separate composable functions"
+            "Extract complex reactive logic into separate composable functions",
+            "ALWAYS use destructuring for data separation or data selection (e.g., when extracting properties from objects or responses)"
           ]
         },
         {
