@@ -104,7 +104,7 @@ For questions or unclear patterns, review the README or ask for clarification.
 - If absolutely necessary, use scoped styles with Vuetify theme integration
 
 ### Component Architecture
-- Avoid creating new component files unless absolutely necessary
+- Avoid creating new component files ask if necessary.
 - Extend existing components with props and slots instead of duplicating
 - Use conditional rendering (`v-if`, `v-show`) within components for variations
 - Implement component variants through props rather than separate files
@@ -137,11 +137,10 @@ For questions or unclear patterns, review the README or ask for clarification.
 
 ### Code Comments and Documentation
 - Use Bisaya with slight English for code comments to maintain local context
-- **Do NOT use '//Bisaya-English comment:' as a starting comment in code.**
+- Do NOT use '//Bisaya-English comment:' as a starting comment in code.
 - Example: `query sa payroll data based on itemData.id = Employee ID`, `fetch ang tanan na trip locations para sa dropdown options`
 - Keep technical terms in English while using Bisaya for descriptive parts
 - Use this commenting style for better team understanding and local relevance
-- Maintain consistency in Bisaya-English comment patterns throughout the codebase
 
 ### TypeScript Variable Definitions
 - For number variables: Use `undefined` instead of `null` for undefined numeric values
