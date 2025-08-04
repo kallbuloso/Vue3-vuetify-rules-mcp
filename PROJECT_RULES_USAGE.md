@@ -87,6 +87,7 @@ get_project_rules({ section: "styling" })
 // Get composition API rules
 get_project_rules({ section: "composition-api" })
 
+// Get all rules
 // Get code examples
 get_project_rules({ section: "examples" })
 ```
