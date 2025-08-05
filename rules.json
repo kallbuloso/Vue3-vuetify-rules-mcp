@@ -29,22 +29,6 @@
           ]
         },
         {
-          "category": "Reusable Techniques",
-          "priority": "high",
-          "rules": [
-            "Create composables in src/composables/ for shared reactive logic",
-            "Use slots and scoped slots for flexible component content",
-            "Implement render functions or dynamic components when appropriate",
-            "Create utility functions in src/utils/helpers/ for non-reactive logic",
-            "Use mixins sparingly - prefer composables for Vue 3",
-            "Implement generic components that accept configuration via props",
-            "Use computed properties for derived state instead of methods when possible"
-          ,
-          // --- C7 Supabase Join Integration Rule ---
-          "When fetching related table data with Supabase, ALWAYS use a single query with join syntax (e.g., .select('*, related:foreign_key(field)')) instead of multiple fetches. Example: For trips with units, use .select('*, units:unit_id(name)') to join and alias the related data. This ensures efficient data retrieval and cleaner code."
-          ]
-        },
-        {
           "category": "Vuetify Integration",
           "priority": "high",
           "rules": [
@@ -54,6 +38,21 @@
             "Use Vuetify's grid system (v-container, v-row, v-col) for layouts",
             "Apply Vuetify's spacing and typography utilities",
             "Use Vuetify's icon system (v-icon) with Material Design Icons"
+          ]
+        },
+        {
+          "category": "Reusable Techniques",
+          "priority": "high",
+          "rules": [
+            "Create composables in src/composables/ for shared reactive logic",
+            "Use slots and scoped slots for flexible component content",
+            "Implement render functions or dynamic components when appropriate",
+            "Create utility functions in src/utils/helpers/ for non-reactive logic",
+            "Use mixins sparingly - prefer composables for Vue 3",
+            "Implement generic components that accept configuration via props",
+            "Use computed properties for derived state instead of methods when possible",
+            // --- C7 Supabase Join Integration Rule ---
+            "When fetching related table data with Supabase, ALWAYS use a single query with join syntax (e.g., .select('*, related:foreign_key(field)')) instead of multiple fetches. Example: For trips with units, use .select('*, units:unit_id(name)') to join and alias the related data. This ensures efficient data retrieval and cleaner code."
           ]
         },
         {
