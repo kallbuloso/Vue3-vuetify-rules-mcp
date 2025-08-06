@@ -72,6 +72,18 @@
             "If absolutely necessary, use scoped styles with Vuetify theme integration"
           ]
         },
+         {
+          "category": "Code Comments and Documentation",
+          "priority": "medium",
+          "rules": [
+            "Use Bisaya with slight English for code comments to maintain local context",
+            "Do NOT use '//Bisaya-English comment:' as a starting comment in code.",
+            "Example format: 'query sa payroll data based on itemData.id = Employee ID','fetch ang tanan na trip locations para sa dropdown options'",
+            "Keep technical terms in English while using Bisaya for descriptive parts",
+            "Use this commenting style for better team understanding and local relevance",
+            "Maintain consistency in Bisaya-English comment patterns throughout the codebase"
+          ]
+        },
         {
           "category": "Component Architecture",
           "priority": "high",
@@ -119,18 +131,7 @@
             "Avoid creating reactive objects in render functions"
           ]
         },
-        {
-          "category": "Code Comments and Documentation",
-          "priority": "medium",
-          "rules": [
-            "Use Bisaya with slight English for code comments to maintain local context",
-            "Do NOT use '//Bisaya-English comment:' as a starting comment in code.",
-            "Example format: 'query sa payroll data based on itemData.id = Employee ID','fetch ang tanan na trip locations para sa dropdown options'",
-            "Keep technical terms in English while using Bisaya for descriptive parts",
-            "Use this commenting style for better team understanding and local relevance",
-            "Maintain consistency in Bisaya-English comment patterns throughout the codebase"
-          ]
-        },
+       
         {
           "category": "TypeScript Variable Definitions",
           "priority": "high",
