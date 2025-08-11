@@ -55,7 +55,19 @@
             "When fetching related table data with Supabase, ALWAYS use a single query with join syntax (e.g., .select('*, related:foreign_key(field)')) instead of multiple fetches. Example: For trips with units, use .select('*, units:unit_id(name)') to join and alias the related data. This ensures efficient data retrieval and cleaner code."
           ]
         },
-        {
+         {
+          "category": "Code Comments and Documentation",
+          "priority": "medium",
+          "rules": [
+            "Use Bisaya with slight English for code comments to maintain local context",
+            "Do NOT use '//Bisaya-English comment:' as a starting comment in code.",
+            "Example format: 'query sa payroll data based on itemData.id = Employee ID','fetch ang tanan na trip locations para sa dropdown options'",
+            "Keep technical terms in English while using Bisaya for descriptive parts",
+            "Use this commenting style for better team understanding and local relevance",
+            "Maintain consistency in Bisaya-English comment patterns throughout the codebase"
+          ]
+        },
+         {
           "category": "Styling and CSS Guidelines",
           "priority": "critical",
           "rules": [
@@ -70,18 +82,6 @@
             "Use Vuetify's sizing utilities (width, height, max-width, etc.)",
             "For custom styling needs, use Vuetify's theme variables and CSS custom properties",
             "If absolutely necessary, use scoped styles with Vuetify theme integration"
-          ]
-        },
-         {
-          "category": "Code Comments and Documentation",
-          "priority": "medium",
-          "rules": [
-            "Use Bisaya with slight English for code comments to maintain local context",
-            "Do NOT use '//Bisaya-English comment:' as a starting comment in code.",
-            "Example format: 'query sa payroll data based on itemData.id = Employee ID','fetch ang tanan na trip locations para sa dropdown options'",
-            "Keep technical terms in English while using Bisaya for descriptive parts",
-            "Use this commenting style for better team understanding and local relevance",
-            "Maintain consistency in Bisaya-English comment patterns throughout the codebase"
           ]
         },
         {
