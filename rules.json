@@ -1,115 +1,115 @@
 {
-  projectRules: {
-    overview: {
-      title: 'Project Overview',
-      description: 'Laravel 12 multi-tenant admin with Inertia.js, Vue 3, Vuetify 3, Pinia, Momentum Modal, Ziggy, Axios.',
-      stackSummary: [
-        'Backend: Laravel 12, service layer in app/Services, spatie/laravel-permission, ToastService macro, queue workers',
-        'Frontend: Inertia.js bootstrapped in resources/js/app.js with Pinia (persist), Vuetify, Momentum Modal, Ziggy, Axios plugin',
-        'Domain: Tenant aware CRUD for users, roles, companies, phones, addresses with shared blocks and components'
+  "projectRules": {
+    "overview": {
+      "title": "Project Overview",
+      "description": "Laravel 12 multi-tenant admin with Inertia.js, Vue 3, Vuetify 3, Pinia, Momentum Modal, Ziggy, Axios.",
+      "stackSummary": [
+        "Backend: Laravel 12, service layer in app/Services, spatie/laravel-permission, ToastService macro, queue workers",
+        "Frontend: Inertia.js bootstrapped in resources/js/app.js with Pinia (persist), Vuetify, Momentum Modal, Ziggy, Axios plugin",
+        "Domain: Tenant aware CRUD for users, roles, companies, phones, addresses with shared blocks and components"
       ]
     },
-    generalConventions: {
-      title: 'General Conventions',
-      priority: 'critical',
-      rules: [
-        'Write labels, copy, and comments in pt-BR aligned with existing tone',
-        'Always respect tenant scope when reading or writing data; populate tenant_id and reuse TenantableTrait helpers',
-        'Reuse existing helpers (renderPage, renderModal, redirect()->toast(), can, swToast, route, usePage) instead of creating variants',
-        'Keep page titles and breadcrumbs in sync between controllers and Vue pages',
-        'Check existing blocks, components, and composables before implementing new UI or logic'
+    "generalConventions": {
+      "title": "General Conventions",
+      "priority": "critical",
+      "rules": [
+        "Write labels, copy, and comments in pt-BR aligned with existing tone",
+        "Always respect tenant scope when reading or writing data; populate tenant_id and reuse TenantableTrait helpers",
+        "Reuse existing helpers (renderPage, renderModal, redirect()->toast(), can, swToast, route, usePage) instead of creating variants",
+        "Keep page titles and breadcrumbs in sync between controllers and Vue pages",
+        "Check existing blocks, components, and composables before implementing new UI or logic"
       ]
     },
-    backendLaravel: {
-      title: 'Backend Guidelines',
-      priority: 'high',
-      rules: [
-        'Controllers extend App\\Http\\Controllers\\Controller and should return renderPage or renderModal for Inertia and Momentum responses',
-        'Authorize actions via authorize() or policies registered through spatie/laravel-permission',
-        'Use dedicated Form Request classes under app/Http/Requests to centralize validation, authorization, and data normalization (add tenant_id in prepareForValidation when needed)',
-        'Encapsulate business logic and query composition inside services that extend BaseService (applyFilters, paginate, with, getSearchable)',
-        'Maintain model $fillable and $searchable arrays when introducing new fields; keep TenantableTrait scopes active',
-        'Return feedback with redirect()->toast(message, type) or ToastService to surface notifications in the frontend',
-        'Update PermissionSeeder and related policies when introducing new abilities leveraged by can() on the frontend'
+    "backendLaravel": {
+      "title": "Backend Guidelines",
+      "priority": "high",
+      "rules": [
+        "Controllers extend App\\\\Http\\\\Controllers\\\\Controller and should return renderPage or renderModal for Inertia and Momentum responses",
+        "Authorize actions via authorize() or policies registered through spatie/laravel-permission",
+        "Use dedicated Form Request classes under app/Http/Requests to centralize validation, authorization, and data normalization (add tenant_id in prepareForValidation when needed)",
+        "Encapsulate business logic and query composition inside services that extend BaseService (applyFilters, paginate, with, getSearchable)",
+        "Maintain model $fillable and $searchable arrays when introducing new fields; keep TenantableTrait scopes active",
+        "Return feedback with redirect()->toast(message, type) or ToastService to surface notifications in the frontend",
+        "Update PermissionSeeder and related policies when introducing new abilities leveraged by can() on the frontend"
       ]
     },
-    inertiaVue: {
-      title: 'Inertia + Vue 3 Guidelines',
-      priority: 'high',
-      rules: [
-        'Use <script setup> with Composition API (JavaScript) for all Vue files',
-        'Access global props through usePage().props (title, breadcrumbs, auth, tenant, toasts)',
-        'Manage form state with useForm and handle form.post/put/delete using onSuccess/onError callbacks',
-        'Prefer the shared Pinia store useThemeStore for theme and drawer state; avoid duplicating this state per component',
-        'Handle permissions with can(resource, action) and the roles array provided in $page.props.auth.user.role',
-        'Mount Momentum Modals via controllers returning renderModal and render them with <Modal /> / <app-modal> wrappers',
-        'Keep business logic lean inside components; extract reusable pieces into composables under resources/js/composables'
+    "inertiaVue": {
+      "title": "Inertia + Vue 3 Guidelines",
+      "priority": "high",
+      "rules": [
+        "Use <script setup> with Composition API (JavaScript) for all Vue files",
+        "Access global props through usePage().props (title, breadcrumbs, auth, tenant, toasts)",
+        "Manage form state with useForm and handle form.post/put/delete using onSuccess/onError callbacks",
+        "Prefer the shared Pinia store useThemeStore for theme and drawer state; avoid duplicating this state per component",
+        "Handle permissions with can(resource, action) and the roles array provided in $page.props.auth.user.role",
+        "Mount Momentum Modals via controllers returning renderModal and render them with <Modal /> / <app-modal> wrappers",
+        "Keep business logic lean inside components; extract reusable pieces into composables under resources/js/composables"
       ]
     },
-    vuetifyStyling: {
-      title: 'Vuetify and Styling',
-      priority: 'critical',
-      rules: [
-        'Rely on Vuetify components and utilities before reaching for custom markup',
-        'Use the configured defaults in resources/js/Plugins (vuetify.js, defaults.js, icons.js, theme.js) and staticPrimaryColor from Plugins/theme',
-        'Prefer existing wrappers such as app-text-field, app-select, app-name-field before instantiating raw VTextField or related components',
-        'Follow density "comfortable" and variant "outlined" conventions unless there is a documented exception',
-        'Scope any additional styles with <style lang="scss" scoped> and lean on Vuetify tokens (background, surface, primary, etc.) rather than hard-coded colors',
-        'Use Vuetify layout utilities (ma-, pa-, d-flex, justify-*, align-*) instead of bespoke CSS classes'
+    "vuetifyStyling": {
+      "title": "Vuetify and Styling",
+      "priority": "critical",
+      "rules": [
+        "Rely on Vuetify components and utilities before reaching for custom markup",
+        "Use the configured defaults in resources/js/Plugins (vuetify.js, defaults.js, icons.js, theme.js) and staticPrimaryColor from Plugins/theme",
+        "Prefer existing wrappers such as app-text-field, app-select, app-name-field before instantiating raw VTextField or related components",
+        "Follow density \"comfortable\" and variant \"outlined\" conventions unless there is a documented exception",
+        "Scope any additional styles with <style lang=\"scss\" scoped> and lean on Vuetify tokens (background, surface, primary, etc.) rather than hard-coded colors",
+        "Use Vuetify layout utilities (ma-, pa-, d-flex, justify-*, align-*) instead of bespoke CSS classes"
       ]
     },
-    dataDisplayPatterns: {
-      title: 'Tables and Data Display',
-      priority: 'medium',
-      rules: [
-        'Use v-data-table (or v-data-table-server when server pagination is required) with density "compact" and provide loading skeletons',
-        'Structure table state with refs (search, page, itemsPerPage) and sync with backend filters where applicable',
-        'Render action columns via slots (e.g., #item.action) and guard buttons with can() checks',
-        'Follow the pattern shown in resources/js/Pages/Settings/Role/Index.vue for CRUD tables with edit/delete actions'
+    "dataDisplayPatterns": {
+      "title": "Tables and Data Display",
+      "priority": "medium",
+      "rules": [
+        "Use v-data-table (or v-data-table-server when server pagination is required) with density \"compact\" and provide loading skeletons",
+        "Structure table state with refs (search, page, itemsPerPage) and sync with backend filters where applicable",
+        "Render action columns via slots (e.g., #item.action) and guard buttons with can() checks",
+        "Follow the pattern shown in resources/js/Pages/Settings/Role/Index.vue for CRUD tables with edit/delete actions"
       ]
     },
-    fileCreationGuidelines: {
-      title: 'File Creation Guidelines',
-      priority: 'high',
-      rules: [
-        'Extend existing components, blocks, or composables before adding new files',
-        'Add new helpers or utilities to the relevant modules under resources/js/utils instead of creating parallel directories',
-        'Only create new Vue components when functionality diverges meaningfully from existing ones and props/slots cannot cover the need',
-        'Keep Momentum modal content under Pages/ so controllers can reference them directly via renderModal',
-        'Document new services, requests, or policies when creating them so PermissionSeeder and routes stay in sync'
+    "fileCreationGuidelines": {
+      "title": "File Creation Guidelines",
+      "priority": "high",
+      "rules": [
+        "Extend existing components, blocks, or composables before adding new files",
+        "Add new helpers or utilities to the relevant modules under resources/js/utils instead of creating parallel directories",
+        "Only create new Vue components when functionality diverges meaningfully from existing ones and props/slots cannot cover the need",
+        "Keep Momentum modal content under Pages/ so controllers can reference them directly via renderModal",
+        "Document new services, requests, or policies when creating them so PermissionSeeder and routes stay in sync"
       ]
     },
-    workflows: {
-      title: 'Workflow and Tooling',
-      priority: 'medium',
-      rules: [
-        'Frontend scripts: npm run dev, npm run build, npm run lint, npm run format',
-        'Backend commands: php artisan serve, php artisan queue:listen, php artisan migrate, php artisan test',
-        'composer dev runs PHP server, queue listener, and Vite concurrently; ensure queue workers maintain tenant context',
-        'Use php artisan db:seed --class=PermissionSeeder when adjusting roles or abilities'
+    "workflows": {
+      "title": "Workflow and Tooling",
+      "priority": "medium",
+      "rules": [
+        "Frontend scripts: npm run dev, npm run build, npm run lint, npm run format",
+        "Backend commands: php artisan serve, php artisan queue:listen, php artisan migrate, php artisan test",
+        "composer dev runs PHP server, queue listener, and Vite concurrently; ensure queue workers maintain tenant context",
+        "Use php artisan db:seed --class=PermissionSeeder when adjusting roles or abilities"
       ]
     },
-    agentIntegration: {
-      title: 'AI Agent Integration',
-      description: 'How to consume these rules inside Copilot, Claude, or other MCP aware tools',
-      methods: [
+    "agentIntegration": {
+      "title": "AI Agent Integration",
+      "description": "How to consume these rules inside Copilot, Claude, or other MCP aware tools",
+      "methods": [
         {
-          method: 'Quick Prompt',
-          instructions: 'Copy the quickPrompt below into a new AI chat to preload the main guardrails.'
+          "method": "Quick Prompt",
+          "instructions": "Copy the quickPrompt below into a new AI chat to preload the main guardrails."
         },
         {
-          method: 'Context Attachment',
-          instructions: 'Attach .github/rules.js (or export to JSON if required) plus Context.md when the agent supports file context.'
+          "method": "Context Attachment",
+          "instructions": "Attach .github/rules.js (or export to JSON if required) plus Context.md when the agent supports file context."
         },
         {
-          method: 'Command Shortcuts',
-          instructions: 'Configure extension shortcuts (e.g., Copilot /rules) to inject the quick prompt and link to Context.md.'
+          "method": "Command Shortcuts",
+          "instructions": "Configure extension shortcuts (e.g., Copilot /rules) to inject the quick prompt and link to Context.md."
         }
       ]
     },
-    quickPrompt: {
-      title: 'Quick Prompt Text',
-      prompt: 'You are working on a Laravel 12 + Inertia.js + Vue 3 (Vuetify) admin. Follow these rules:\n- Keep every change tenant aware and reuse TenantableTrait helpers\n- Use <script setup> Composition API (JavaScript) and existing Pinia stores/composables\n- Use Vuetify defaults, utility classes, and shared wrappers; never author custom CSS classes\n- Return feedback with redirect()->toast() and surface it through swToast in AppShell\n- Prefer extending existing blocks/components/services before creating new files\nConsult Context.md and .github/copilot-instructions.md for detailed examples.'
+    "quickPrompt": {
+      "title": "Quick Prompt Text",
+      "prompt": "You are working on a Laravel 12 + Inertia.js + Vue 3 (Vuetify) admin. Follow these rules:\\n- Keep every change tenant aware and reuse TenantableTrait helpers\\n- Use <script setup> Composition API (JavaScript) and existing Pinia stores/composables\\n- Use Vuetify defaults, utility classes, and shared wrappers; never author custom CSS classes\\n- Return feedback with redirect()->toast() and surface it through swToast in AppShell\\n- Prefer extending existing blocks/components/services before creating new files\\nConsult Context.md and .github/copilot-instructions.md for detailed examples."
     }
   }
 }
