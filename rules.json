@@ -1,206 +1,115 @@
 {
-  "projectRules": {
-    "vue3Development": {
-      "title": "Vue 3 + Vuetify Development Guidelines",
-      "description": "Rules for MCP agents when working with this Vue 3/Vuetify project",
-      "rules": [
+  projectRules: {
+    overview: {
+      title: 'Project Overview',
+      description: 'Laravel 12 multi-tenant admin with Inertia.js, Vue 3, Vuetify 3, Pinia, Momentum Modal, Ziggy, Axios.',
+      stackSummary: [
+        'Backend: Laravel 12, service layer in app/Services, spatie/laravel-permission, ToastService macro, queue workers',
+        'Frontend: Inertia.js bootstrapped in resources/js/app.js with Pinia (persist), Vuetify, Momentum Modal, Ziggy, Axios plugin',
+        'Domain: Tenant aware CRUD for users, roles, companies, phones, addresses with shared blocks and components'
+      ]
+    },
+    generalConventions: {
+      title: 'General Conventions',
+      priority: 'critical',
+      rules: [
+        'Write labels, copy, and comments in pt-BR aligned with existing tone',
+        'Always respect tenant scope when reading or writing data; populate tenant_id and reuse TenantableTrait helpers',
+        'Reuse existing helpers (renderPage, renderModal, redirect()->toast(), can, swToast, route, usePage) instead of creating variants',
+        'Keep page titles and breadcrumbs in sync between controllers and Vue pages',
+        'Check existing blocks, components, and composables before implementing new UI or logic'
+      ]
+    },
+    backendLaravel: {
+      title: 'Backend Guidelines',
+      priority: 'high',
+      rules: [
+        'Controllers extend App\\Http\\Controllers\\Controller and should return renderPage or renderModal for Inertia and Momentum responses',
+        'Authorize actions via authorize() or policies registered through spatie/laravel-permission',
+        'Use dedicated Form Request classes under app/Http/Requests to centralize validation, authorization, and data normalization (add tenant_id in prepareForValidation when needed)',
+        'Encapsulate business logic and query composition inside services that extend BaseService (applyFilters, paginate, with, getSearchable)',
+        'Maintain model $fillable and $searchable arrays when introducing new fields; keep TenantableTrait scopes active',
+        'Return feedback with redirect()->toast(message, type) or ToastService to surface notifications in the frontend',
+        'Update PermissionSeeder and related policies when introducing new abilities leveraged by can() on the frontend'
+      ]
+    },
+    inertiaVue: {
+      title: 'Inertia + Vue 3 Guidelines',
+      priority: 'high',
+      rules: [
+        'Use <script setup> with Composition API (JavaScript) for all Vue files',
+        'Access global props through usePage().props (title, breadcrumbs, auth, tenant, toasts)',
+        'Manage form state with useForm and handle form.post/put/delete using onSuccess/onError callbacks',
+        'Prefer the shared Pinia store useThemeStore for theme and drawer state; avoid duplicating this state per component',
+        'Handle permissions with can(resource, action) and the roles array provided in $page.props.auth.user.role',
+        'Mount Momentum Modals via controllers returning renderModal and render them with <Modal /> / <app-modal> wrappers',
+        'Keep business logic lean inside components; extract reusable pieces into composables under resources/js/composables'
+      ]
+    },
+    vuetifyStyling: {
+      title: 'Vuetify and Styling',
+      priority: 'critical',
+      rules: [
+        'Rely on Vuetify components and utilities before reaching for custom markup',
+        'Use the configured defaults in resources/js/Plugins (vuetify.js, defaults.js, icons.js, theme.js) and staticPrimaryColor from Plugins/theme',
+        'Prefer existing wrappers such as app-text-field, app-select, app-name-field before instantiating raw VTextField or related components',
+        'Follow density "comfortable" and variant "outlined" conventions unless there is a documented exception',
+        'Scope any additional styles with <style lang="scss" scoped> and lean on Vuetify tokens (background, surface, primary, etc.) rather than hard-coded colors',
+        'Use Vuetify layout utilities (ma-, pa-, d-flex, justify-*, align-*) instead of bespoke CSS classes'
+      ]
+    },
+    dataDisplayPatterns: {
+      title: 'Tables and Data Display',
+      priority: 'medium',
+      rules: [
+        'Use v-data-table (or v-data-table-server when server pagination is required) with density "compact" and provide loading skeletons',
+        'Structure table state with refs (search, page, itemsPerPage) and sync with backend filters where applicable',
+        'Render action columns via slots (e.g., #item.action) and guard buttons with can() checks',
+        'Follow the pattern shown in resources/js/Pages/Settings/Role/Index.vue for CRUD tables with edit/delete actions'
+      ]
+    },
+    fileCreationGuidelines: {
+      title: 'File Creation Guidelines',
+      priority: 'high',
+      rules: [
+        'Extend existing components, blocks, or composables before adding new files',
+        'Add new helpers or utilities to the relevant modules under resources/js/utils instead of creating parallel directories',
+        'Only create new Vue components when functionality diverges meaningfully from existing ones and props/slots cannot cover the need',
+        'Keep Momentum modal content under Pages/ so controllers can reference them directly via renderModal',
+        'Document new services, requests, or policies when creating them so PermissionSeeder and routes stay in sync'
+      ]
+    },
+    workflows: {
+      title: 'Workflow and Tooling',
+      priority: 'medium',
+      rules: [
+        'Frontend scripts: npm run dev, npm run build, npm run lint, npm run format',
+        'Backend commands: php artisan serve, php artisan queue:listen, php artisan migrate, php artisan test',
+        'composer dev runs PHP server, queue listener, and Vite concurrently; ensure queue workers maintain tenant context',
+        'Use php artisan db:seed --class=PermissionSeeder when adjusting roles or abilities'
+      ]
+    },
+    agentIntegration: {
+      title: 'AI Agent Integration',
+      description: 'How to consume these rules inside Copilot, Claude, or other MCP aware tools',
+      methods: [
         {
-          "category": "Composition API",
-          "priority": "high",
-          "rules": [
-            "ALWAYS use Composition API with <script setup> syntax instead of Options API",
-            "Use reactive(), ref(), computed(), and watch() from Vue 3 composition API",
-            "Prefer defineProps() and defineEmits() for component props and events",
-            "Use composables (functions starting with 'use') for reusable logic",
-            "Extract complex reactive logic into separate composable functions",
-            "ALWAYS use destructuring for data separation or data selection (e.g., when extracting properties from objects or responses)"
-          ]
-        },
-        {
-          "category": "Props and Component Communication",
-          "priority": "high",
-          "rules": [
-            "Define props using defineProps() with TypeScript interfaces for type safety",
-            "Use prop validation with required, type, and default properties",
-            "Emit events using defineEmits() instead of $emit",
-            "Pass data down via props, emit events up to parent components",
-            "Use provide/inject for deeply nested component communication",
-            "Avoid direct mutation of props - emit events to request changes"
-          ]
-        },
-        {
-          "category": "Vuetify Integration",
-          "priority": "high",
-          "rules": [
-            "Leverage Vuetify's built-in components before creating custom ones",
-            "Use Vuetify's theming system for consistent styling",
-            "Utilize v-model with Vuetify form components",
-            "Use Vuetify's grid system (v-container, v-row, v-col) for layouts",
-            "Apply Vuetify's spacing and typography utilities",
-            "Use Vuetify's icon system (v-icon) with Material Design Icons"
-          ]
-        },
-        {
-          "category": "Reusable Techniques",
-          "priority": "high",
-          "rules": [
-            "Create composables in src/composables/ for shared reactive logic",
-            "Use slots and scoped slots for flexible component content",
-            "Implement render functions or dynamic components when appropriate",
-            "Create utility functions in src/utils/helpers/ for non-reactive logic",
-            "Use mixins sparingly - prefer composables for Vue 3",
-            "Implement generic components that accept configuration via props",
-            "Use computed properties for derived state instead of methods when possible",
-            // --- C7 Supabase Join Integration Rule ---
-            "When fetching related table data with Supabase, ALWAYS use a single query with join syntax (e.g., .select('*, related:foreign_key(field)')) instead of multiple fetches. Example: For trips with units, use .select('*, units:unit_id(name)') to join and alias the related data. This ensures efficient data retrieval and cleaner code."
-          ]
-        },
-         {
-          "category": "Code Comments and Documentation",
-          "priority": "medium",
-          "rules": [
-            "Use Bisaya with slight English for code comments to maintain local context",
-            "Do NOT use '//Bisaya-English comment:' as a starting comment in code.",
-            "Example format: 'query sa payroll data based on itemData.id = Employee ID','fetch ang tanan na trip locations para sa dropdown options'",
-            "Keep technical terms in English while using Bisaya for descriptive parts",
-            "Use this commenting style for better team understanding and local relevance",
-            "Maintain consistency in Bisaya-English comment patterns throughout the codebase"
-          ]
-        },
-         {
-          "category": "Styling and CSS Guidelines",
-          "priority": "critical",
-          "rules": [
-            "NEVER write pure CSS or custom CSS classes - always use Vuetify utilities",
-            "Use Vuetify's built-in classes for spacing (ma-, pa-, mt-, pt-, etc.)",
-            "Use Vuetify's color system (primary, secondary, success, error, etc.)",
-            "Use Vuetify's typography classes (text-h1, text-h2, text-body-1, etc.)",
-            "Use Vuetify's display utilities (d-flex, d-none, d-block, etc.)",
-            "Use Vuetify's elevation classes (elevation-1, elevation-2, etc.)",
-            "Use Vuetify's border utilities (border, rounded, etc.)",
-            "Apply responsive classes (hidden-xs-only, hidden-sm-and-down, etc.)",
-            "Use Vuetify's sizing utilities (width, height, max-width, etc.)",
-            "For custom styling needs, use Vuetify's theme variables and CSS custom properties",
-            "If absolutely necessary, use scoped styles with Vuetify theme integration"
-          ]
-        },
-        {
-          "category": "Component Architecture",
-          "priority": "high",
-          "rules": [
-            "Avoid creating new component files unless absolutely necessary",
-            "Extend existing components with props and slots instead of duplicating",
-            "Use conditional rendering (v-if, v-show) within components for variations",
-            "Implement component variants through props rather than separate files",
-            "Create higher-order components or wrapper components for common patterns",
-            "Use dynamic component rendering with <component :is='componentName'> when needed"
-          ]
-        },
-        {
-          "category": "State Management",
-          "priority": "medium",
-          "rules": [
-            "Use Pinia stores (in src/stores/) for global state management",
-            "Keep component-specific state local using ref() or reactive()",
-            "Use computed properties for derived state from stores",
-            "Implement store actions for complex state mutations",
-            "Use store getters for filtered or computed store data"
-          ]
+          method: 'Quick Prompt',
+          instructions: 'Copy the quickPrompt below into a new AI chat to preload the main guardrails.'
         },
         {
-          "category": "Code Organization",
-          "priority": "medium",
-          "rules": [
-            "Group related functionality within single components using logical sections",
-            "Use TypeScript interfaces and types for better code documentation",
-            "Implement error boundaries and proper error handling",
-            "Use Vue 3's Teleport for modals, tooltips, and overlays",
-            "Follow the established folder structure in src/",
-            "Place reusable types in dedicated type files when shared across components"
-          ]
+          method: 'Context Attachment',
+          instructions: 'Attach .github/rules.js (or export to JSON if required) plus Context.md when the agent supports file context.'
         },
         {
-          "category": "Performance and Best Practices",
-          "priority": "medium",
-          "rules": [
-            "Use v-memo for expensive list rendering when appropriate",
-            "Implement lazy loading with defineAsyncComponent for large components",
-            "Use shallowRef() and shallowReactive() for large objects when deep reactivity isn't needed",
-            "Implement proper key attributes for v-for loops",
-            "Use nextTick() when DOM updates are required before further operations",
-            "Avoid creating reactive objects in render functions"
-          ]
-        },
-       
-        {
-          "category": "TypeScript Variable Definitions",
-          "priority": "high",
-          "rules": [
-            "For number variables: Use 'undefined' instead of 'null' for undefined numeric values",
-            "For string variables: Use empty string '' or actual string values, avoid 'null'",
-            "Use TypeScript union types for optional values: 'number | undefined' for numbers",
-            "Use TypeScript union types for optional strings: 'string | undefined' if needed",
-            "Prefer explicit type definitions over 'any' type",
-            "Use 'undefined' for uninitialized primitive values consistently",
-            "Example: const count: number | undefined = undefined (not null)",
-            "Example: const name: string = '' (not null)",
-            "Example: const optionalText: string | undefined = undefined (when truly optional)"
-          ]
+          method: 'Command Shortcuts',
+          instructions: 'Configure extension shortcuts (e.g., Copilot /rules) to inject the quick prompt and link to Context.md.'
         }
       ]
     },
-    "fileCreationGuidelines": {
-      "title": "File Creation Restrictions",
-      "description": "Guidelines for when to create new files vs. extending existing ones",
-      "rules": [
-        "Before creating a new component file, check if existing components can be extended",
-        "Create new files only when the component serves a completely different purpose",
-        "Prefer adding props and conditional logic to existing components",
-        "Use slots and dynamic content instead of creating similar components",
-        "Create utility functions in existing helper files rather than new utility files",
-        "Add new composables to existing composable files when related functionality exists"
-      ]
-    },
-    "agentIntegration": {
-      "title": "How to Use Rules as Agent Prompts",
-      "description": "Instructions for integrating these rules with AI agents",
-      "methods": [
-        {
-          "method": "VS Code Extension Prompt",
-          "description": "Include this file as context in VS Code extensions or MCP servers",
-          "implementation": "Attach this rules.json file as context when making requests to AI agents"
-        },
-        {
-          "method": "Custom Prompt Template",
-          "description": "Use the prompt template below for consistent agent behavior",
-          "promptTemplate": "You are working on a Vue 3 + Vuetify project. Follow these critical rules:\n\n1. COMPOSITION API ONLY: Always use <script setup> syntax, never Options API\n2. NO PURE CSS: Never write custom CSS - only use Vuetify utility classes\n3. EXTEND, DON'T CREATE: Modify existing components with props/slots instead of creating new files\n4. VUETIFY FIRST: Use Vuetify components and utilities for all styling and layout\n\nCritical CSS Rules:\n- Use Vuetify spacing: ma-4, pa-2, mt-3, etc.\n- Use Vuetify colors: primary, secondary, success, error\n- Use Vuetify typography: text-h1, text-body-1, etc.\n- Use Vuetify display: d-flex, d-none, justify-center, etc.\n- Use Vuetify elevation: elevation-2, elevation-4, etc.\n\nRefer to the full rules.json for complete guidelines."
-        },
-        {
-          "method": "Project-Specific Instructions",
-          "description": "Copy and paste these rules into agent conversations",
-          "usage": "When starting a new conversation with an AI agent, include the relevant sections from this rules.json file"
-        }
-      ]
-    },
-    "codeExamples": {
-      "vuetifyStyleExample": {
-        "description": "Example of proper Vuetify styling (NO pure CSS)",
-        "good": "// ✅ CORRECT - Using Vuetify utilities\n<v-card class='ma-4 pa-6 elevation-2'>\n  <v-card-title class='text-h4 primary--text mb-3'>\n    {{ title }}\n  </v-card-title>\n  <v-card-text class='text-body-1 grey--text text--darken-2'>\n    <v-row class='d-flex justify-center align-center'>\n      <v-col cols='12' md='6' class='text-center'>\n        Content here\n      </v-col>\n    </v-row>\n  </v-card-text>\n</v-card>",
-        "bad": "// ❌ WRONG - Using pure CSS\n<div class='custom-card'>\n  <h2 class='custom-title'>{{ title }}</h2>\n  <p class='custom-text'>Content</p>\n</div>\n\n<style scoped>\n.custom-card {\n  margin: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 4px rgba(0,0,0,0.1);\n}\n.custom-title {\n  font-size: 24px;\n  color: #1976d2;\n}\n</style>"
-      },
-      "compositionApiExample": {
-        "description": "Example of proper Composition API usage with props",
-        "code": "// Preferred approach\n<script setup lang='ts'>\ninterface Props {\n  title: string\n  items: Array<any>\n  variant?: 'default' | 'compact'\n}\n\nconst props = withDefaults(defineProps<Props>(), {\n  variant: 'default'\n})\n\nconst emit = defineEmits<{\n  select: [item: any]\n  close: []\n}>()\n\nconst isCompact = computed(() => props.variant === 'compact')\n</script>"
-      },
-      "reusableComponentExample": {
-        "description": "Example of making a component reusable with props and slots",
-        "code": "// Instead of creating separate components, use props and slots\n<template>\n  <v-card :class='cardClasses'>\n    <v-card-title v-if='title'>{{ title }}</v-card-title>\n    <v-card-text>\n      <slot name='content'>\n        <slot>{{ defaultContent }}</slot>\n      </slot>\n    </v-card-text>\n    <v-card-actions v-if='$slots.actions'>\n      <slot name='actions'></slot>\n    </v-card-actions>\n  </v-card>\n</template>"
-      }
-    },
-    "quickReferencePrompt": {
-      "title": "Quick Agent Prompt",
-      "description": "Copy this prompt for immediate use with AI agents",
-      "prompt": "🚨 CRITICAL PROJECT RULES for Vue 3 + Vuetify:\n\n1. ❌ NO PURE CSS - Only Vuetify utility classes\n2. ✅ Use <script setup> - Never Options API\n3. ✅ Extend existing components - Don't create new files\n4. ✅ Use Vuetify spacing: ma-4, pa-2, mt-3\n5. ✅ Use Vuetify colors: primary, secondary, success\n6. ✅ Use Vuetify typography: text-h1, text-body-1\n7. ✅ Use Vuetify layout: d-flex, justify-center, align-center\n8. ✅ Use props + slots for component variations\n\nALWAYS follow these rules strictly!"
+    quickPrompt: {
+      title: 'Quick Prompt Text',
+      prompt: 'You are working on a Laravel 12 + Inertia.js + Vue 3 (Vuetify) admin. Follow these rules:\n- Keep every change tenant aware and reuse TenantableTrait helpers\n- Use <script setup> Composition API (JavaScript) and existing Pinia stores/composables\n- Use Vuetify defaults, utility classes, and shared wrappers; never author custom CSS classes\n- Return feedback with redirect()->toast() and surface it through swToast in AppShell\n- Prefer extending existing blocks/components/services before creating new files\nConsult Context.md and .github/copilot-instructions.md for detailed examples.'
     }
   }
 }
